@@ -7,7 +7,7 @@ import pickle as pk
 
 app = Flask(__name__)
 
-@app.route('/api', methods=['POST'])
+@app.route('/arrow', methods=['POST'])
 def make_predict():
     #all kinds of error checking should go here
     data = request.get_json(force=True)
