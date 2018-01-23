@@ -1,78 +1,65 @@
-var width = 1920
-  var height = 1000
+	//Width and height
+    var w = 800;
+    var h = 500;
+    
+    //Data
+    var dataset = [ 5, 40 ];
+    
+    //Create SVG element
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+//create the circle
+    var circles = svg.selectAll("circle")
+        .data(dataset)
+        .enter()
+        .append("circle");
 
-  var gasMoleculeCount = 1
-  var dustCount = 4
-  var gasMoleculeRadius = 12
-  var dustRadius = 36
+    circles.attr("cx", 50)
+           .attr("cy", 300)
+           .attr("r", function(d) {
+                return d;
+           })
+           .attr("fill", "yellow")
+           .attr("stroke", "orange")
+           .attr("stroke-width", function(d) {
+                return d/2;
+           })
+           //start the animation of the circle
+           .transition()
+           .attr("cx",700)
+           
+           .attr("cy", 300)
+           .duration(2000).attrTween('width', function() {
+            return d3.interpolateNumber(0, 250);
+          });
 
-  var realtimeContext = document.querySelector('#realtime')
-      .getContext('2d', {alpha: true})
+           var rect = svg.selectAll("rect")
+           .data(dataset)
+           .enter()
+           .append("rect")
+           .attr("x", 700)
+           .attr("y", 300)
+           .attr("height", 100)
+           .attr("width", 100);
 
-  realtimeContext.transform(1, 0, 0, 1, width / 2, height / 2)
 
-  var radius = function(node) { return node.radius }
+           //path
+           // Create an arc generator with configuration
+var arcGenerator = d3.arc();
 
-  var gasMolecules = d3.range(gasMoleculeCount).map(function() {
-    return {
-      radius: gasMoleculeRadius,
-      x: -width / 3 + dustRadius - gasMoleculeRadius, // collide at same time
-      y: height / 6,
-      vx: 2,
-      vy: 0
-    }
-  })
+// Generate the path string
+var pathData = arcGenerator({
+  startAngle: 0,
+  endAngle: 0.25 * Math.PI,
+  innerRadius: 50,
+  outerRadius: 100
+});
 
-  var dustParticles = d3.range(dustCount).map(function(d, i) {
-    return {
-      radius: dustRadius,
-      x: width / 3 * [-1, 0, 0, -1][i],
-      y: height / 6 * [-1, 0, 1, 0][i],
-      vx: [2, 0, 0, 2][i],
-      vy: 0
-    }})
+// Create a path element and set its d attribute
+d3.select('g')
+	.append('path')
+	.attr('d', pathData);
 
-  var nodes = dustParticles.concat(gasMolecules)
-
-  d3.forceSimulation(nodes)
-      .alphaDecay(0)
-      .velocityDecay(0)
-      .force("collide", d3.forceCollide()
-          .radius(radius).strength(1).iterations(10))
-      .on("tick", render)
-
-  realtimeContext.lineWidth = 1
-  realtimeContext.fillStyle = "red"
-
-  function render() {
-
-    var i
-    var r
-    var particle
-
-    realtimeContext.clearRect(-width / 2, -height / 2, width, height)
-
-    realtimeContext.beginPath()
-    realtimeContext.moveTo(-dustRadius, -height / 3)
-    realtimeContext.lineTo(-dustRadius, height / 3)
-    realtimeContext.stroke()
-
-    realtimeContext.beginPath()
-    for(i = 0; i < gasMoleculeCount; i++) {
-      particle = gasMolecules[i]
-      r = particle.radius
-      realtimeContext.moveTo(particle.x + r, particle.y)
-      realtimeContext.arc(particle.x, particle.y, r, 0, 2 * Math.PI)
-    }
-    realtimeContext.stroke()
-
-    realtimeContext.beginPath()
-    for(i = 0; i < dustCount; i++) {
-      particle = dustParticles[i]
-      r = particle.radius
-      realtimeContext.moveTo(particle.x + r, particle.y)
-      realtimeContext.arc(particle.x, particle.y, r, 0, 2 * Math.PI)
-    }
-    realtimeContext.fill()
-    realtimeContext.stroke()
-  }
+    
