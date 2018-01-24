@@ -3,24 +3,40 @@
     var h = 500;
     
     //Data
-    var dataset = [ 5, 40 ];
+    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/frontData.json"
+    //var dataset = [ 5, 40 ];
     
+    //Pull in the data
+    d3.json(queryURL, function(error, dataset){
+            console.log(dataset)
+
     //Create SVG element
     var svg = d3.select("body")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
-//create the circle
+
+
+     //create the circle
     var circles = svg.selectAll("circle")
         .data(dataset)
+        .text(function(d, i) {
+            return d.Velocity;
+        })
+        .attr("class", "label")
         .enter()
         .append("circle");
 
     circles.attr("cx", 50)
-           .attr("cy", 300)
-           .attr("r", function(d) {
-                return d;
+           .attr("cy", function(d, i) {
+               try {
+                   return (d.Angle)
+               } 
+               catch (err) {
+                   console.log("you have experienced an error, sir!")
+               }
            })
+           .attr("r", 20)
            .attr("fill", "yellow")
            .attr("stroke", "orange")
            .attr("stroke-width", function(d) {
@@ -31,7 +47,10 @@
            .attr("cx",700)
            
            .attr("cy", 300)
-           .duration(2000).attrTween('width', function() {
+           .duration(function(d, i) {
+               return (d.Velocity * 500)
+           })
+           .attrTween('width', function() {
             return d3.interpolateNumber(0, 250);
           });
 
@@ -61,5 +80,5 @@ var pathData = arcGenerator({
 d3.select('g')
 	.append('path')
 	.attr('d', pathData);
-
+    })
     
