@@ -30,13 +30,13 @@
     circles.attr("cx", 50)
            .attr("cy", function(d, i) {
                try {
-                   return (d.Angle)
+                   return (d.Angle * 5)
                } 
                catch (err) {
                    console.log("you have experienced an error, sir!")
                }
            })
-           .attr("r", 20)
+           .attr("r", 10)
            .attr("fill", "yellow")
            .attr("stroke", "orange")
            .attr("stroke-width", function(d) {
@@ -44,8 +44,21 @@
            })
            //start the animation of the circle
            .transition()
-           .attr("cx",700)
-           
+           .attr("cx", function(d, i) {
+            if (d.Result === 1) {
+                return (675+ d.Velocity);
+            } else {
+                return (400 + d.Velocity);
+            }
+           })
+           //.attr("cx",700)
+           .attr("cy", function(d, i) {
+            if (d.Result === 1) {
+                return (300 + d.Velocity);
+            } else {
+                return (50 + d.Angle);
+            }
+           })
            .attr("cy", 300)
            .duration(function(d, i) {
                return (d.Velocity * 500)
@@ -59,9 +72,9 @@
            .enter()
            .append("rect")
            .attr("x", 700)
-           .attr("y", 300)
-           .attr("height", 100)
-           .attr("width", 100);
+           .attr("y", 275)
+           .attr("height", 50)
+           .attr("width", 50);
 
 
            //path
