@@ -3,24 +3,40 @@
     var h = 500;
     
     //Data
-    var dataset = [ 5, 40 ];
+    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/frontData.json"
+    //var dataset = [ 5, 40 ];
     
+    //Pull in the data
+    d3.json(queryURL, function(error, dataset){
+            console.log(dataset)
+
     //Create SVG element
     var svg = d3.select("body")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
-//create the circle
+
+
+     //create the circle
     var circles = svg.selectAll("circle")
         .data(dataset)
+        .text(function(d, i) {
+            return d.Velocity;
+        })
+        .attr("class", "label")
         .enter()
         .append("circle");
 
     circles.attr("cx", 50)
-           .attr("cy", 300)
-           .attr("r", function(d) {
-                return d;
+           .attr("cy", function(d, i) {
+               try {
+                   return (d.Angle * 5)
+               } 
+               catch (err) {
+                   console.log("you have experienced an error, sir!")
+               }
            })
+           .attr("r", 10)
            .attr("fill", "yellow")
            .attr("stroke", "orange")
            .attr("stroke-width", function(d) {
@@ -28,10 +44,26 @@
            })
            //start the animation of the circle
            .transition()
-           .attr("cx",700)
-           
+           .attr("cx", function(d, i) {
+            if (d.Result === 1) {
+                return (675+ d.Velocity);
+            } else {
+                return (400 + d.Velocity);
+            }
+           })
+           //.attr("cx",700)
+           .attr("cy", function(d, i) {
+            if (d.Result === 1) {
+                return (300 + d.Velocity);
+            } else {
+                return (50 + d.Angle);
+            }
+           })
            .attr("cy", 300)
-           .duration(2000).attrTween('width', function() {
+           .duration(function(d, i) {
+               return (d.Velocity * 500)
+           })
+           .attrTween('width', function() {
             return d3.interpolateNumber(0, 250);
           });
 
@@ -40,9 +72,9 @@
            .enter()
            .append("rect")
            .attr("x", 700)
-           .attr("y", 300)
-           .attr("height", 100)
-           .attr("width", 100);
+           .attr("y", 275)
+           .attr("height", 50)
+           .attr("width", 50);
 
 
            //path
@@ -61,5 +93,5 @@ var pathData = arcGenerator({
 d3.select('g')
 	.append('path')
 	.attr('d', pathData);
-
+    })
     
