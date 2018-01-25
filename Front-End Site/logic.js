@@ -36,7 +36,7 @@
                    console.log("you have experienced an error, sir!")
                }
            })
-           .attr("r", 10)
+           .attr("r", 8)
            .attr("fill", "yellow")
            .attr("stroke", "orange")
            .attr("stroke-width", function(d) {
@@ -46,9 +46,9 @@
            .transition()
            .attr("cx", function(d, i) {
             if (d.Result === 1) {
-                return (675+ d.Velocity);
+                return (675+ 2*d.Velocity);
             } else {
-                return (400 + d.Velocity);
+                return (400 + 2*d.Velocity);
             }
            })
            //.attr("cx",700)
