@@ -11,17 +11,7 @@
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
             
-             function success(d, i){
-                  if (d.Range > 19 && d.Range < 21) {
-                     return (1)
-                    } 
-                    else
-                     {
-                         return (0)
-                 }
-                
-            
-              }
+        
             //  console.log(x)
     // Create SVG element
     var svg = d3.select("body")
