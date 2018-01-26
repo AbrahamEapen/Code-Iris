@@ -1,23 +1,27 @@
-	//Width and height
+	// Width and height
     var w = 800;
     var h = 500;
     
-    //Data
-    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/frontData.json"
+    // Data
+    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Jeff/Front-End%20Site/newDatas.json"
+    //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/frontData.json"
     //var dataset = [ 5, 40 ];
     
-    //Pull in the data
+    // Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
-
-    //Create SVG element
+            
+        
+            //  console.log(x)
+    // Create SVG element
     var svg = d3.select("body")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
 
 
-     //create the circle
+
+     // create the circle
     var circles = svg.selectAll("circle")
         .data(dataset)
         .text(function(d, i) {
@@ -27,16 +31,16 @@
         .enter()
         .append("circle");
 
-    circles.attr("cx", 50)
+    circles.attr("cx", 200)
            .attr("cy", function(d, i) {
                try {
-                   return (d.Angle * 5)
+                   return (50)
                } 
                catch (err) {
                    console.log("you have experienced an error, sir!")
                }
            })
-           .attr("r", 10)
+           .attr("r", 8)
            .attr("fill", "yellow")
            .attr("stroke", "orange")
            .attr("stroke-width", function(d) {
@@ -46,9 +50,9 @@
            .transition()
            .attr("cx", function(d, i) {
             if (d.Result === 1) {
-                return (675+ d.Velocity);
+                return (d.Range);
             } else {
-                return (400 + d.Velocity);
+                return (d.Range);
             }
            })
            //.attr("cx",700)
@@ -61,7 +65,7 @@
            })
            .attr("cy", 300)
            .duration(function(d, i) {
-               return (d.Velocity * 500)
+               return (d.Range*40)
            })
            .attrTween('width', function() {
             return d3.interpolateNumber(0, 250);
