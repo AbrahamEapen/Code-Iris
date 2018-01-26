@@ -1,23 +1,23 @@
-	//Width and height
+	// Width and height
     var w = 800;
     var h = 500;
     
-    //Data
+    // Data
     var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/frontData.json"
     //var dataset = [ 5, 40 ];
     
-    //Pull in the data
+    // Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
 
-    //Create SVG element
+    // Create SVG element
     var svg = d3.select("body")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
 
 
-     //create the circle
+     // create the circle
     var circles = svg.selectAll("circle")
         .data(dataset)
         .text(function(d, i) {
