@@ -3,13 +3,20 @@
     var h = 500;
     
     // Data
-    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/frontData.json"
+    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Jeff/Front-End%20Site/newData.json"
+    //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/frontData.json"
     //var dataset = [ 5, 40 ];
     
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
-
+            
+            //  function x(d, i){
+            //     var newRange = (1*d.Velocity*d.Velocity*(Math.sin(2*d.Angle)))/9.8
+            //     return newRange
+            
+            //  }
+            //  console.log(x)
     // Create SVG element
     var svg = d3.select("body")
                 .append("svg")
