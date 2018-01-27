@@ -14,7 +14,7 @@
         
             //  console.log(x)
     // Create SVG element
-    var svg = d3.select("body")
+    var svg = d3.select("#fireballCanvas")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
@@ -88,9 +88,9 @@
            .data(dataset)
            .enter()
            .append("rect")
-           .attr("x", 700)
-           .attr("y", 275)
-           .attr("height", 50)
+           .attr("x", 280)
+           .attr("y", 310   )
+           .attr("height", 10)
            .attr("width", 50);
 
 
