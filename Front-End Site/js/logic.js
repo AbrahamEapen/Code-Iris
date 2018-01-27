@@ -30,7 +30,7 @@
         .enter()
         .append("circle");
 
-    circles.attr("cx", 200)
+    circles.attr("cx", 400)
            .attr("cy", function(d, i) {
                try {
                    return (50)
@@ -46,6 +46,8 @@
             else{
                 return 8;
             }})
+
+            //Color of the fireballs
            .attr("fill", function(d, i){
                if (d.Result === 1) {
                    return "red";
@@ -58,6 +60,8 @@
                 return d/2;
            })
            .attr("opacity", 0.75)
+
+
            //start the animation of the circle
            .transition()
            .attr("cx", function(d, i) {
@@ -67,7 +71,7 @@
                 return (d.Range);
             }
            })
-           //.attr("cx",700)
+           
            .attr("cy", function(d, i) {
             if (d.Result === 1) {
                 return (300 + d.Velocity);
