@@ -20,22 +20,6 @@ import _pickle as pickle
 
 
 #################################################
-# Database Setup
-#################################################
- engine = create_engine("sqlite:///titanic.sqlite")
-
- # reflect an existing database into a new model
- Base = automap_base()
- # reflect the tables
- Base.prepare(engine, reflect=True)
-
- # Save reference to the table
- Passenger = Base.classes.passenger
-
- # Create our session (link) from Python to the DB
- session = Session(engine)
-
-#################################################
 # Flask Setup
 #################################################
 # app = Flask(__name__)
