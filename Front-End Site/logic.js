@@ -3,7 +3,7 @@
     var h = 400;
     
     // Data
-    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Jeff/Front-End%20Site/newDatas.json"
+    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Jeff/Front-End%20Site/NewDatas2.json"
     //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/frontData.json"
     //var dataset = [ 5, 40 ];
     
@@ -40,12 +40,25 @@
                    console.log("you have experienced an error, sir!")
                }
            })
-           .attr("r", 8)
-           .attr("fill", "yellow")
+           .attr("r", function(d, i){
+            if (d.Result ===1) {
+                return 20;
+            }
+            else{
+                return 8;
+            }})
+           .attr("fill", function(d, i){
+               if (d.Result ===1) {
+                   return "red";
+               }
+               else{
+                   return "yellow"
+               }})
            .attr("stroke", "orange")
            .attr("stroke-width", function(d) {
                 return d/2;
            })
+           .attr("opacity", 0.75)
            //start the animation of the circle
            .transition()
            .attr("cx", function(d, i) {
@@ -65,7 +78,7 @@
            })
            .attr("cy", 300)
            .duration(function(d, i) {
-               return (d.Range*40)
+               return (d.Range*20)
            })
            .attrTween('width', function() {
             return d3.interpolateNumber(0, 250);
