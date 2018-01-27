@@ -3,9 +3,9 @@
     var h = 400;
     
     // Data
-    var queryURL = "/practice/json.json"
+   // var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Jeff/Front-End%20Site/NewDatas2.json"
    
-    
+    var queryURL = "/practice/json.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
