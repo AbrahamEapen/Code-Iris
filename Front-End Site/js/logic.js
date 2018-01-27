@@ -76,6 +76,7 @@
             }
            })
            .attr("cy", 300)
+           .delay(100)
            .duration(function(d, i) {
                return (d.Range*20)
            })
