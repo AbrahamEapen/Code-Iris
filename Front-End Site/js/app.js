@@ -1,3 +1,4 @@
+//Variable to store slider value for distance
 var userDistance;
 
 var slider = document.getElementById("myRange");
