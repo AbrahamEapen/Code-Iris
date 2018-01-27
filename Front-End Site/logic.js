@@ -1,6 +1,6 @@
 	// Width and height
     var w = 800;
-    var h = 500;
+    var h = 400;
     
     // Data
     var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Jeff/Front-End%20Site/newDatas.json"
