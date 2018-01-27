@@ -3,7 +3,7 @@
     var h = 400;
     
     // Data
-    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Jeff/Front-End%20Site/NewDatas2.json"
+    var queryURL = "/practice/json.json"
    
     
     // Pull in the data
@@ -18,15 +18,21 @@
                 .attr("width", w)
                 .attr("height", h);
 
-
-                svg.append('svg:image')
-.attr({
-  'xlink:href': 'ryu.png',  // can also add svg file here
-  x: 20,
-  y: 20,
-  width: 225,
-  height: 225
-});
+//                  d3.select('#fireballCanvas')
+//                 //  .append('svg')
+//                 //  .attr({
+//                 //     width: 300,
+//                 //     height: 300,
+//                 //     border: '1px solid #ccc'
+//                 //   });
+//             append('svg:image')
+// .attr({
+//   'xlink:href': 'ryu.png',  // can also add svg file here
+//   x: 20,
+//   y: 20,
+//   width: 225,
+//   height: 225
+// }).enter();
 
 
 
