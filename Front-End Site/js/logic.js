@@ -19,6 +19,16 @@
                 .attr("height", h);
 
 
+                svg.append('svg:image')
+.attr({
+  'xlink:href': 'ryu.png',  // can also add svg file here
+  x: 20,
+  y: 20,
+  width: 225,
+  height: 225
+});
+
+
 
      // create the circle
     var circles = svg.selectAll("circle")
