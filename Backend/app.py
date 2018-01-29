@@ -2,10 +2,10 @@
 import numpy as np
 import pandas as pd
 import math
-import random
-import json
+import random, json
 
-from flask import Flask, render_template, jsonify, redirect
+# Flask
+from flask import Flask, render_template, jsonify, redirect, request, Response
 
 # Import Scikit Learn
 from sklearn.linear_model import LogisticRegression
@@ -121,43 +121,49 @@ def practice():
 #         # Return the Data
 #         return(str(train_score))
 
+# Route for Filtering JSONs
+@app.route("/replay", methods=["GET","POST"])
+def replay():
 
-# # Route for Filtering JSONs
-# @app.route("/replay", methods=["GET"])
-# def replay():
+    # Generate New Data (replayData)
+    # Store as an array called replayData
+    angle = [random.randint(1, 90) for k in range(1000)]
+    velocity = [random.randint(0, 100) for k in range(1000)]
+    velocity =  np.array(velocity)
+    angle = np.array(angle)
+    gravity = 9.8
+    horizontal_velocity = velocity * (np.cos(angle*math.pi)/180)
+    vertical_velocity = velocity * (np.sin(angle*math.pi)/180)
+    free_fall_time = (vertical_velocity/9.8)
+    total_time = (2*free_fall_time)
+    maximum_height = (2*vertical_velocity/(2*gravity))
+    Range = ((velocity**2)*(np.sin(2*angle*3.14/180))/9.8)
 
-#     # Generate New Data (replayData)
-#     # Store as an array called replayData
-#     angle = []
-#     velocity = []
-#     velocity =  []
-#     angle = np.array(angle)
-#     gravity = 
-#     horizontal_velocity = velocity * (np.cos(angle*math.pi)/180)
-#     vertical_velocity = velocty * ()
-#     free_fall_time = ()
-#     total_time = ()
-#     maximum_height = (2*vertical_velocity)
-#     Range = (()*())
+    # Creating the Dataframe
+    moo = pd.DataFrame({'Angle': angle,
+                        'Velocity': velocity,
+                        'Horizontal Velocity': horizontal_velocity,
+                        'Vertical Velocity': vertical_velocity,
+                        'Free Fall Time': free_fall_time,
+                        'Total Time': total_time,
+                        'Maximum Height': maximum_height,
+                        'Range': Range,
+                        },
+                        columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum Height','Range']
+                        )
 
-#     # Creating the Dataframe
-#     moo = pd.Dataframe({'Angle': angle,
-#                         'Velocity': velocity,
-#                         'Horizontal Velocity': horizontal_velocity,
-#                         'Vertical Velocity': vertical_velocity,
-#                         'Free Fall Time': free_fall_time,
-#                         'Total Time': total_time,
-#                         'Maximum Height': maximum_height,
-#                         'Range': Range,
-#     },
-#     columns=['Angle','Velocity','Horizontal Velocity']
-#     )
+    # Force a 'pattern' in the results columns
+    moo['Result'] = np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
+    moojson = json.loads(moo.to_json(orient="records"))
+
+    # Return an array of the jsonified version
+    return jsonify(moojson)
 
 #     # Filtered List
 #     filteredData = []
 
 #     # Reload the classifier
-#     classifier = pickle.load(open("Classifier.sav", 'rb')) 
+#     classifier = pickle.load(open("Classifier.sav", 'rb'))
 
 #     # Filter it down using the Classifier
 #     for x in range(len(replayData)):
