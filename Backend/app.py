@@ -68,15 +68,18 @@ def practice():
 #    moo = moo.sort_values('Result', ascending=False)
     
 
-
 # # Route for Training JSONs
-# @app.route("/train", methods=["POST"])
+# @app.route("/train", methods=['GET','POST'])
 # def train():
     
-#      #ajax to send json[arrray] to train route
-#      #Todo: create code that will recieve json post request
+#    #ajax to send json[arrray] to train route
+#    #Todo: create code that will recieve json post request
      
-#      #research and test using postman
+#    #research and test using postman
+
+#    clicked=None
+#    if request.method == "POST":
+#        clicked=request.json['data']
 
 #     # Save the json array as dateframe called moo pretrained
 #     # with successful, angle, velcity, and range 
@@ -111,15 +114,15 @@ def practice():
 #     #         print(success_guesses[x])
 #     #         print(newSimulation[x])
 
-#         # Score the Model
-#         train_score = classifier.score(X_train, y_train)
-#         test_score = classifier.score(X_test, y_test)
+#     # Score the Model
+#     train_score = classifier.score(X_train, y_train)
+#     test_score = classifier.score(X_test, y_test)
 
-#         # Pickle 
-#         pickle.dump(classifier, open("Classifier.sav", 'wb'))
+#     # Pickle 
+#     pickle.dump(classifier, open("Classifier.sav", 'wb'))
 
-#         # Return the Data
-#         return(str(train_score))
+#     # Return the Data
+#     return(str(train_score))
 
 # Route for Filtering JSONs
 @app.route("/replay", methods=["GET","POST"])
@@ -139,7 +142,7 @@ def replay():
     maximum_height = (2*vertical_velocity/(2*gravity))
     Range = ((velocity**2)*(np.sin(2*angle*3.14/180))/9.8)
 
-    # Creating the Dataframe
+    #Creating the Dataframe
     moo = pd.DataFrame({'Angle': angle,
                         'Velocity': velocity,
                         'Horizontal Velocity': horizontal_velocity,
@@ -152,31 +155,32 @@ def replay():
                         columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum Height','Range']
                         )
 
-    # Force a 'pattern' in the results columns
+    #Force a 'pattern' in the results columns
     moo['Result'] = np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
     moojson = json.loads(moo.to_json(orient="records"))
 
-    # Return an array of the jsonified version
-    return jsonify(moojson)
 
-#     # Filtered List
-#     filteredData = []
+#    #Return an array of the jsonified version
+#    return jsonify(moojson)
 
-#     # Reload the classifier
-#     classifier = pickle.load(open("Classifier.sav", 'rb'))
+#    #Filtered List
+#    filteredData = []
 
-#     # Filter it down using the Classifier
-#     for x in range(len(replayData)):
+#    #Reload the classifier
+#    classifier = pickle.load(open("Classifier.sav", 'rb'))
 
-#         print(replayData[x])
-#         if(classifier.predict([replayData[x]["Angle"], replayData[x]["Velocity"], replayData[x]["Range"]) == 1):
-#             filteredData.append(replayData[x])
+#    #Filter it down using the Classifier
+#    for x in range(len(replayData)):
 
-#     print(len(replayData))
-#     print(len(filteredData))
+#        print(replayData[x])
+#        if(classifier.predict([replayData[x]["Angle"], replayData[x]["Velocity"], replayData[x]["Range"]) == 1):
+#            filteredData.append(replayData[x])
 
-#     # Display only filtered Data
-#     return(jsonify(filteredData))
+#    print(len(replayData))
+#    print(len(filteredData))
+
+#    # Display only filtered Data
+#    return(jsonify(filteredData))
 
 #################################################
 # Flask Boilerplate
