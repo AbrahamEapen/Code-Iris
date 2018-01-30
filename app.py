@@ -22,8 +22,8 @@ app = Flask(__name__)
 # Flask Routes
 #################################################
 
-# Test Route
-#@app.route("/")
+## Test Route
+#@app.route("/hello/")
 #def home(name=None):
 #    return render_template('index.html', name=name)
 

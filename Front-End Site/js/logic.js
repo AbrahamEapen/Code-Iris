@@ -16,9 +16,11 @@ slider.oninput = function() {
     var w = 800;
     var h = 400;
     
-    // Data
-    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Jeff/Front-End%20Site/NewDatas2.json"
-   
+//    // Data ( GET Request )
+//    var queryURL = $.get("/generate", function(data) {
+//                        console.log($.parseJSON(data))
+//    })
+
     //var queryURL = "/practice/json.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
@@ -151,5 +153,39 @@ var pathData = arcGenerator({
 d3.select('g')
 	.append('path')
 	.attr('d', pathData);
-    })
-    
+});
+
+// // Create function to POST Request Data Points back to Server
+// $(function () {
+
+//      var $ = $('#');
+//      var $ = $('#');
+//      var $ = $('#');
+
+//      function addOrder(order){
+
+//      }
+
+//      $('').on('click', function(){
+
+//          var order = {
+//              name: $name.val(),    
+//              drink: $drink.val(),
+//          };
+
+//          $.ajax({
+//              type: 'POST',
+//              url: "{{url_for('test')}}",
+//              data: order,
+//              contentType : 'application/json;charset=UTF-8'
+//              data: {'data':clicked}
+//              success: function(newData) {
+//                  addOrder(newOrder);
+//              },
+//              error: function() {
+//                     alert('error saving order');
+//              }
+//          });
+//      });
+//  });
+
