@@ -1,18 +1,4 @@
-var slider = document.getElementById("myRange");
-var output = document.getElementById("rangeValue");
-output.innerHTML = slider.value; // Display the default slider value
-
-    //Variable to store slider value for distance
-    var userDistance = output.innerHTML;
-
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-    userDistance = output.innerHTML = this.value;
-}
-    
-    
-    
-    // Width and height
+	// Width and height
     var w = 800;
     var h = 400;
     
@@ -26,7 +12,8 @@ slider.oninput = function() {
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
             
-    //  console.log(x)
+        
+            //  console.log(x)
     // Create SVG element
     var svg = d3.select("#fireballCanvas")
                 .append("svg")
@@ -70,13 +57,27 @@ slider.oninput = function() {
                    console.log("you have experienced an error, sir!")
                }
            })
-            .attr("r",10)// function(d, i){
-        //     if (d.Result === 1) {
-        //         return 20;
-        //     }
-        //     else{
-        //         return 8;
-        //     }})
+           .attr("r", function(d, i){
+            if (d.Result === 1) {
+                return 20;
+            }
+            else{
+                return 8;
+            }})
+
+            //Color of the fireballs
+           .attr("fill", function(d, i){
+               if (d.Result === 1) {
+                   return "red";
+               }
+               else{
+                   return "yellow"
+               }})
+           .attr("stroke", "orange")
+           .attr("stroke-width", function(d) {
+                return d/2;
+           })
+           .attr("opacity", 0.75)
 
 
            //start the animation of the circle
@@ -91,22 +92,6 @@ slider.oninput = function() {
                 return (d.Range);
             }
            })
-
-            //Color of the fireballs
-            .attr("fill", function(d, i){
-                console.log(userDistance);
-                console.log(Math.round(d.Range));
-                if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
-                    return "red";
-                }
-                else{
-                    return "yellow"
-                }})
-            .attr("stroke", "orange")
-            .attr("stroke-width", function(d) {
-                 return d/2;
-            })
-            .attr("opacity", 0.75)
            
            .attr("cy", function(d, i) {
             if (d.Result === 1) {
@@ -116,7 +101,7 @@ slider.oninput = function() {
             }
            })
            .attr("cy", 300)
-           //.delay(100)
+           .delay(100)
            .duration(function(d, i) {
                return (d.Range*20)
            })
@@ -128,12 +113,10 @@ slider.oninput = function() {
            .data(dataset)
            .enter()
            .append("rect")
-           .attr("x", (userDistance - 30))
+           .attr("x", 280)
            .attr("y", 310   )
            .attr("height", 10)
-           .attr("width", 60)
-
-           console.log(userDistance);
+           .attr("width", 50)
         })
 
 
