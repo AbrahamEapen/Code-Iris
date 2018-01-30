@@ -100,36 +100,36 @@ d3.select('g')
 });
     
 
-// Create function to POST Request Data Points back to Server
-$(function () {
+// // Create function to POST Request Data Points back to Server
+// $(function () {
 
-    var $  = $('#');
-    var $  = $('#');
-    var $  = $('#');
+//     var $  = $('#');
+//     var $  = $('#');
+//     var $  = $('#');
 
-    function addOrder(order){
+//     function addOrder(order){
         
-    }
+//     }
 
-    $('').on('click', function(){
+//     $('').on('click', function(){
 
-        var order = {
-            name: $name.val(),
-            drink: $drink.val(),
-        };
+//         var order = {
+//             name: $name.val(),
+//             drink: $drink.val(),
+//         };
 
-        $.ajax({
-            type: 'POST',
-            url: "{{url_for('test')}}",
-            data: order,
-            contentType : 'application/json;charset=UTF-8',
-            data : {'data':clicked}
-            success: function(newData) {
-                addOrder(newOrder);
-            },
-            error: function() {
-                alert('error saving order');
-            }
-        });
-    });
-});
+//         $.ajax({
+//             type: 'POST',
+//             url: "{{url_for('test')}}",
+//             data: order,
+//             contentType : 'application/json;charset=UTF-8',
+//             data : {'data':clicked}
+//             success: function(newData) {
+//                 addOrder(newOrder);
+//             },
+//             error: function() {
+//                 alert('error saving order');
+//             }
+//         });
+//     });
+// });
