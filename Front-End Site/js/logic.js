@@ -21,7 +21,7 @@ slider.oninput = function() {
 //                        console.log($.parseJSON(data))
 //    })
 
-    //var queryURL = "/practice/json.json"
+    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
