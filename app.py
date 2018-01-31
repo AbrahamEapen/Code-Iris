@@ -69,17 +69,14 @@ def practice():
     
 
 # # Route for Training JSONs
-#  @app.route("/Train", methods=['GET','POST'])
-#  def train():
-#     moo['Result'] = np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
+@app.route("/train", methods=['GET','POST'])
+def train():   
+     moo['Result'] = np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
+     return jsonify(moo['Result'])
 #    #ajax to send json[arrray] to train route
 #    #Todo: create code that will recieve json post request
      
 #    #research and test using postman
-
-#    clicked=None
-#    if request.method == "POST":
-#        clicked=request.json['data']
 
 #     # Save the json array as dateframe called moo pretrained
 #     # with successful, angle, velcity, and range 
