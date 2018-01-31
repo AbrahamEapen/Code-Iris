@@ -12,7 +12,7 @@ slider.oninput = function() {
     
 
 function result(d, i){
-    console.log("test result function" + d.Result)
+    console.log("test result function", d.Result)
     if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
         (d.Result === 1);
         console.log(d.Result)
@@ -218,4 +218,10 @@ d3.select('g')
 //          });
 //      });
 //  });
+d3.select("#Train")
+           .on("click", function() {
+               $.post("/train", (userDistance) 
+             
+             )  })
+         
 
