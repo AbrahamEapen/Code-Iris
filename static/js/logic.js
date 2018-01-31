@@ -10,6 +10,19 @@ slider.oninput = function() {
     userDistance = output.innerHTML = this.value;
 }
     
+
+function result(d, i){
+    console.log("test result function" + d.Result)
+    if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
+        (d.Result === 1);
+        console.log(d.Result)
+        return (d.Result === 1)
+       
+    }
+    else{
+    
+        return (d.Result === 0)
+    }}
     
     
     // Width and height
@@ -21,7 +34,9 @@ slider.oninput = function() {
 //                        console.log($.parseJSON(data))
 //    })
 
-    var queryURL = "https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
+
+//this is where we pull in the data
+    var queryURL = "/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
@@ -48,6 +63,7 @@ slider.oninput = function() {
 //   width: 225,
 //   height: 225
 // }).enter();
+
 
 
 
@@ -86,6 +102,7 @@ slider.oninput = function() {
            .transition()
            .attr("cx", function(d, i) {
             if (d.Result === 1) {
+
                 return (d.Range);
             } else {
                 return (d.Range);
@@ -94,12 +111,15 @@ slider.oninput = function() {
 
             //Color of the fireballs
             .attr("fill", function(d, i){
-                console.log(userDistance);
-                console.log(Math.round(d.Range));
+             //   console.log(userDistance);
+              //  console.log(Math.round(d.Range));
                 if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
+                    (d.Result === 1);
+                  //  console.log(d.Result)
                     return "red";
                 }
                 else{
+                   // console.log(d.Result)
                     return "yellow"
                 }})
             .attr("stroke", "orange")
@@ -122,7 +142,13 @@ slider.oninput = function() {
            })
            .attrTween('width', function() {
             return d3.interpolateNumber(0, 250);
+
+
+
           });
+
+          
+
 
            var rect = svg.selectAll("rect")
            .data(dataset)
@@ -132,8 +158,12 @@ slider.oninput = function() {
            .attr("y", 310   )
            .attr("height", 10)
            .attr("width", 60)
+          
+          
+           result(dataset)
 
-           console.log(userDistance);
+
+          // console.log(userDistance);
         });
 
 

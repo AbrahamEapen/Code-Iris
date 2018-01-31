@@ -58,7 +58,7 @@ def practice():
                         )
     
     # Force a 'pattern' in the results columns
-    moo['Result'] = np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
+    moo['Result'] = 0#np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
     moojson = json.loads(moo.to_json(orient="records"))
  
     # Return only the jsonified version
