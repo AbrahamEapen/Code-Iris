@@ -23,9 +23,9 @@ app = Flask(__name__)
 #################################################
 
 ## Test Route
-#@app.route("/hello/")
-#def home(name=None):
-#    return render_template('index.html', name=name)
+@app.route("/")
+def home(name=None):
+    return render_template('index.html', name=name)
 
 # Route for Generate JSONs
 @app.route("/generate", methods=["GET", "POST"])
