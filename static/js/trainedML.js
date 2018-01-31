@@ -9,8 +9,6 @@ output.innerHTML = slider.value; // Display the default slider value
 slider.oninput = function() {
     userDistance = output.innerHTML = this.value;
 }
-
-
     
 
 function result(d, i){
@@ -38,7 +36,7 @@ function result(d, i){
 
 
 //this is where we pull in the data
-    var queryURL = "/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
+    var queryURL = "/Train" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
@@ -98,7 +96,7 @@ function result(d, i){
 
 
            //start the animation of the circle
-           d3.select("#Start")
+           d3.select("#Train")
            .on("click", function() {
                d3.selectAll("circle")
            .transition()
@@ -149,10 +147,7 @@ function result(d, i){
 
           });
 
-          var pickedNumber = 55
-$.post("/postmethod", {userPick: userDistance}, function(data, response){
-    console.log(response);
-})
+          
 
 
            var rect = svg.selectAll("rect")
@@ -166,7 +161,6 @@ $.post("/postmethod", {userPick: userDistance}, function(data, response){
           
           
            result(dataset)
-
 
 
           // console.log(userDistance);
@@ -224,10 +218,6 @@ d3.select('g')
 //          });
 //      });
 //  });
-d3.select("#Train")
-           .on("click", function() {
-               $.post("/train", (userDistance) 
-             
-             )  })
+
          
 

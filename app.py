@@ -58,7 +58,7 @@ def practice():
                         )
     
     # Force a 'pattern' in the results columns
-    moo['Result'] = np.where((moo['Range']>= 280)&(moo['Range']<=320),1,0)
+    moo['Result'] = 0#np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
     moojson = json.loads(moo.to_json(orient="records"))
  
     # Return only the jsonified version
@@ -69,9 +69,9 @@ def practice():
     
 
 # # Route for Training JSONs
-# @app.route("/train", methods=['GET','POST'])
-# def train():
-    
+#  @app.route("/Train", methods=['GET','POST'])
+#  def train():
+#     moo['Result'] = np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
 #    #ajax to send json[arrray] to train route
 #    #Todo: create code that will recieve json post request
      
@@ -181,6 +181,16 @@ def practice():
 
 #    # Display only filtered Data
 #    return(jsonify(filteredData))
+
+@app.route('/postmethod', methods=['POST'])
+def get_post_javascript_data():
+    if request.method == "POST":
+        jsdata = request.form["userPick"]
+        print("Posted")
+        print(jsdata)
+
+    # print("line", jsdata)
+    return jsonify(jsdata)
 
 #################################################
 # Flask Boilerplate
