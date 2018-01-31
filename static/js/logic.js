@@ -38,7 +38,7 @@ function result(d, i){
 
 
 //this is where we pull in the data
-    var queryURL = "/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
+    var queryURL = "/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Mike/json11111.json" //"/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
@@ -79,7 +79,7 @@ function result(d, i){
         .enter()
         .append("circle");
 
-    circles.attr("cx", 400)
+    circles.attr("cx", 5)
            .attr("cy", function(d, i) {
                try {
                    return (50)
@@ -138,10 +138,19 @@ function result(d, i){
             }
            })
            .attr("cy", 300)
-           //.delay(100)
-           .duration(function(d, i) {
-               return (d.Range*20)
+           .delay(function(d, i) {
+               return d.Range * 15
            })
+           .duration(500)
+           .transition()
+           .attr("r", 30)
+           .duration(300)
+           .transition()
+           .attr("r", 8)
+
+        //        function(d, i) {
+        //        return (d.Range*8)
+        //    })
            .attrTween('width', function() {
             return d3.interpolateNumber(0, 250);
 
@@ -149,10 +158,19 @@ function result(d, i){
 
           });
 
-          var pickedNumber = 55
-$.post("/postmethod", {userPick: userDistance}, function(data, response){
-    console.log(response);
-})
+          function postSender(data){
+            $.post("/postmethod", data, function(data, response){
+                console.log(response);
+            })
+         }
+        
+         $.get("/generate", function(dataset) {
+            //console.log(dataset[0])
+            var testingData = JSON.stringify(dataset);
+            console.log(testingData)
+        
+            postSender(testingData)
+        })
 
 
            var rect = svg.selectAll("rect")
