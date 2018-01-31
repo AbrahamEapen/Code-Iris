@@ -71,34 +71,33 @@ def practice():
 # # Route for Training JSONs
 # @app.route("/train", methods=['GET','POST'])
 # def train():
-    
-#    #ajax to send json[arrray] to train route
-#    #Todo: create code that will recieve json post request
-     
-#    #research and test using postman
 
-#    clicked=None
-#    if request.method == "POST":
-#        clicked=request.json['data']
+    #ajax to send json[arrray] to train route
+    #Todo: create code that will recieve json post request
+      
+    #research and test using postman
 
-#     # Save the json array as dateframe called moo pretrained
-#     # with successful, angle, velcity, and range 
+   # Save the json array as dateframe called moo pretrained
+   # with successful, angle, velcity, and range 
 
-#     # Separate "Labels" and "Data"
+#    moopretrained = pd.DataFrame({})
+
+
+     # Separate "Labels" and "Data"
 #     labels = moopretrained["Success_Failure"].values
 #     data = moopretrained[["Angle", "Velocity","Range"]].values
     
 #     # Create a Logistic Model
 #     X_train, X_test, y_train, y_test = train_test_split(data, labels, random_state=1, stratify=labels)
 
-#     # Model for LogistiRegression
+#     # Model for LogisticRegression
 #     classifier = LogisticRegression()
 #     classifier.fit(X_train, y_train)
 #     classifier.score(X_train, y_train)
 #     classifier.score(X_test, y_test)
 
-#     # classifier.predict([65, 30])
-#     # classifier.predict([[12121, 23], [65,30]])
+     # classifier.predict([65, 30])
+     # classifier.predict([[12121, 23], [65,30]])
 #     # newSimulation = [[12121, 23], [65,30]]
 #     # success_guesses = classifier.predict([[]])
 #     # newSimulation
@@ -161,7 +160,7 @@ def replay():
 
 
 #    #Return an array of the jsonified version
-#    return jsonify(moojson)
+    return jsonify(moojson)
 
 #    #Filtered List
 #    filteredData = []

@@ -12,17 +12,25 @@ slider.oninput = function() {
     
     
     
-    // Width and height
+// Width and height
     var w = 800;
     var h = 400;
     
-//    // Data ( GET Request )
-//    var queryURL = $.get("/generate", function(data) {
-//                        console.log($.parseJSON(data))
-//    })
+// Function with GET and POST callback
+$.get("/generate", function(dataset) {
+    console.log($.parseJSON(data))
+    var testingData = dataset[0];
+    console.log("line 30", testingData)
+})
 
-    //var queryURL = "/practice/json.json"
-    // Pull in the data
+$.post("/train", function(dataset) {
+    console.log($.parseJSON(data))
+    var testingData = dataset[0];
+    console.log("line 30", testingData)
+})
+
+//var queryURL = "/practice/json.json"
+// Pull in the data
     d3.json(queryURL, function(error, dataset){
             console.log(dataset)
             
@@ -154,38 +162,3 @@ d3.select('g')
 	.append('path')
 	.attr('d', pathData);
 });
-
-// // Create function to POST Request Data Points back to Server
-// $(function () {
-
-//      var $ = $('#');
-//      var $ = $('#');
-//      var $ = $('#');
-
-//      function addOrder(order){
-
-//      }
-
-//      $('').on('click', function(){
-
-//          var order = {
-//              name: $name.val(),    
-//              drink: $drink.val(),
-//          };
-
-//          $.ajax({
-//              type: 'POST',
-//              url: "{{url_for('test')}}",
-//              data: order,
-//              contentType : 'application/json;charset=UTF-8'
-//              data: {'data':clicked}
-//              success: function(newData) {
-//                  addOrder(newOrder);
-//              },
-//              error: function() {
-//                     alert('error saving order');
-//              }
-//          });
-//      });
-//  });
-
