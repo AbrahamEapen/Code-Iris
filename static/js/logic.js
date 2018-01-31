@@ -158,10 +158,19 @@ function result(d, i){
 
           });
 
-          var pickedNumber = 55
-$.post("/postmethod", {userPick: userDistance}, function(data, response){
-    console.log(response);
-})
+          function postSender(data){
+            $.post("/postmethod", data, function(data, response){
+                console.log(response);
+            })
+         }
+        
+         $.get("/generate", function(dataset) {
+            //console.log(dataset[0])
+            var testingData = JSON.stringify(dataset);
+            console.log(testingData)
+        
+            postSender(testingData)
+        })
 
 
            var rect = svg.selectAll("rect")

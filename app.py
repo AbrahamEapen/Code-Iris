@@ -5,7 +5,7 @@ import math
 import random, json
 
 # Flask
-from flask import Flask, render_template, jsonify, redirect, request, Response
+from flask import Flask, render_template, jsonify, redirect, request, Response, json
 
 # Import Scikit Learn
 from sklearn.linear_model import LogisticRegression
@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 # Import Pickle
 import _pickle as pickle
 
+
 #################################################
 # Flask Setup
 #################################################
@@ -21,7 +22,7 @@ app = Flask(__name__)
 #################################################
 # Flask Routes
 #################################################
-
+#moojson = 0
 ## Test Route
 @app.route("/")
 def home(name=None):
@@ -181,13 +182,14 @@ def practice():
 
 #    # Display only filtered Data
 #    return(jsonify(filteredData))
-
 @app.route('/postmethod', methods=['POST'])
 def get_post_javascript_data():
     if request.method == "POST":
-        jsdata = request.form["userPick"]
-        print("Posted")
-        print(jsdata)
+        print("Post went through")
+        jsdata = request.get_json(force=True)
+
+        for x in jsdata:
+            print(x)
 
     # print("line", jsdata)
     return jsonify(jsdata)
