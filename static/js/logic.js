@@ -294,9 +294,26 @@ d3.select('g')
            .duration(500)
            .transition()
            .duration(1000)
-           .attr("r", 50)
+           .attr("r", 10)
            
-           .attr("cx",  userDistance ) 
+           //.attr("cx",  userDistance ) 
+
+           .attr("cx", function(d, i){
+            //   console.log(userDistance);
+             //  console.log(Math.round(d.Range));
+               if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
+                   (d.Result === 1);
+                 //  console.log(d.Result)
+                   return d.Range;
+               }
+               else{
+                  // console.log(d.Result)
+                   return userDistance
+               }})
+               .delay(function (d, i) {
+                   return d.Range;
+               })
+               .delay(100)
            .attr("cy", 300)
            .duration(500)
         //   .attr("r", 10)
