@@ -11,10 +11,8 @@ from flask import Flask, render_template, jsonify, redirect, request, Response, 
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-
 # Import Pickle
 import _pickle as pickle
-
 
 #################################################
 # Flask Setup
@@ -24,7 +22,7 @@ app = Flask(__name__)
 # Flask Routes
 #################################################
 #moojson = 0
-## Test Route
+# Test Route
 @app.route("/")
 def home(name=None):
     return render_template('index.html', name=name)
@@ -58,9 +56,9 @@ def practice():
                         },
                         columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum_Height','Range']
                         )
-    
+
     # Force a 'pattern' in the results columns
- #   moo['Result'] = 0 #np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
+    moo['Result'] = 0 #np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
     moojson = json.loads(moo.to_json(orient="records"))
  
     # Return only the jsonified version
@@ -68,15 +66,17 @@ def practice():
 
 #    # Sort Values
 #    moo = moo.sort_values('Result', ascending=False)
-    
 
-# # Route for Training JSONs
+# Route for Training JSONs
 @app.route("/train", methods=['GET','POST'])
 def train():
     # AJAX Route that "post" data back
     if request.method == "POST":
      print("Post went through")
      jsdata = request.get_json(force=True)
+     # Convert array into DataFrame
+     moopretrained = pd.DataFrame(jsdata)
+     print(moopretrained.head())
 
     for x in jsdata:
         print(x)
@@ -85,8 +85,8 @@ def train():
     # return jsonify(jsdata)
 
         # Convert array into DataFrame
-        # with successful, angle, velocity, and range
-        moopretrained = pd.DataFrame(jsdata)
+        # and append new column "Results" with Successful, Angle, Velocity, and Range
+        moopretrained['Result'] = Series(np.where((moopretrained['Range']>= (jsdata + 20))&(moopretrained['Range']<=(jsdata-20))), index=moopretrained.index)
     
         # Separate "Labels" and "Data"
         labels = moopretrained["Result"].values
@@ -106,13 +106,13 @@ def train():
         test_score = classifier.score(X_test, y_test)
 
         # "Pickle"
-        pickle.dump(classifier, open("Classifier.sav", 'wb'))        
+        pickle.dump(classifier, open("Classifier.sav", 'wb'))
 
         # Return the Data
         return(str(train_score))
 
 #     moo['Result'] = np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
-#     return jsonify(moo['Result'])    
+#     return jsonify(moo['Result'])
 
 #     # classifier.predict([65, 30])
 #     # classifier.predict([[12121, 23], [65,30]])
@@ -162,9 +162,11 @@ def replay():
                              columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum Height','Range']
                              )
 
-    # Force a 'pattern' in the results columns
-    mooreplay['Result'] = 0 #np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
-    moojson = json.loads(mooreplay.to_json(orient="records"))
+    # # Separate only necessary values
+    #             for index, row in mooreplay.iterrows():
+    #             print("Angle:", row["Angle"])
+    #             print("Velocity:", row["Velocity"])
+    #             print("Range", row["Range"])
 
     # Filtered List
     filteredData = []
@@ -172,6 +174,7 @@ def replay():
     # Load the classifier
     classifier = pickle.load(open("Classifier.sav", 'rb'))
 
+        
     # Filter it down using the Classifier
     for x in range(len(mooreplay)):
         print(mooreplay[x])
