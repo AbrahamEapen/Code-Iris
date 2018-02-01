@@ -43,7 +43,17 @@ function result(d, i){
     d3.json(queryURL, function(error, dataset){
           //  console.log(dataset)
             
-    //  console.log(x)
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+          //  console.log(x)
     // Create SVG element
     var svg = d3.select("#fireballCanvas")
                 .append("svg")
@@ -267,10 +277,54 @@ d3.select('g')
            .duration(500)
            .delay(200)
            
+<<<<<<< HEAD
            .attr("cy", 300)
            .duration(500)
            .delay(500)
            .attr("cx", ((userDistance + Math.floor(Math.random() * 7 ) +1) ))
 
+=======
+          
+           .duration(500)
+          // .delay(1500)
+           
+           .attr("fill", "red")
+           .attr("r", 30)
+           .duration(500)
+         //  .transition()
+           
+           .duration(3000)
+           .transition()
+           .duration(500)
+          // .attr("r", 10)
+           
+           .duration(500)
+           .transition()
+           .duration(1000)
+           .attr("r", 10)
+           
+           //.attr("cx",  userDistance ) 
+
+           .attr("cx", function(d, i){
+            //   console.log(userDistance);
+             //  console.log(Math.round(d.Range));
+               if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
+                   (d.Result === 1);
+                 //  console.log(d.Result)
+                   return d.Range;
+               }
+               else{
+                  // console.log(d.Result)
+                   return userDistance
+               }})
+               .delay(function (d, i) {
+                   return d.Range;
+               })
+               .delay(100)
+           .attr("cy", 300)
+           .duration(500)
+        //   .attr("r", 10)
+           
+>>>>>>> 4a9a0145dfb52650eb9abb516b9367d5af5757a4
 
            })
