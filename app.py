@@ -162,19 +162,18 @@ def replay():
                              columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum Height','Range']
                              )
 
-    # # Separate only necessary values
-    #             for index, row in mooreplay.iterrows():
-    #             print("Angle:", row["Angle"])
-    #             print("Velocity:", row["Velocity"])
-    #             print("Range", row["Range"])
+     # Separate only necessary values
+    for index, row in mooreplay.iterrows():
+                 print("Angle:", row["Angle"])
+                 print("Velocity:", row["Velocity"])
+                 print("Range", row["Range"])
 
     # Filtered List
     filteredData = []
 
     # Load the classifier
     classifier = pickle.load(open("Classifier.sav", 'rb'))
-
-        
+       
     # Filter it down using the Classifier
     for x in range(len(mooreplay)):
         print(mooreplay[x])
