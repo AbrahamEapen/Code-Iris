@@ -43,7 +43,17 @@ function result(d, i){
     d3.json(queryURL, function(error, dataset){
           //  console.log(dataset)
             
-    //  console.log(x)
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+          //  console.log(x)
     // Create SVG element
     var svg = d3.select("#fireballCanvas")
                 .append("svg")
@@ -258,15 +268,55 @@ d3.select('g')
                d3.selectAll("circle")
            .transition()
            .attr("cy", 10)
+           .attr("cx", 50)
            .duration(500)
            .transition()
-           .attr("cx", 10)
+          // .attr("cx", 10)
            .attr("r", 10)
            .attr("fill", "yellow")
            .duration(500)
            .delay(200)
-           .attr("cy", 300)
-           .attr("cx", (userDistance + d.Range - d.Angle))
+           
+          
+           .duration(500)
+          // .delay(1500)
+           
+           .attr("fill", "red")
+           .attr("r", 30)
+           .duration(500)
+         //  .transition()
+           
+           .duration(3000)
+           .transition()
+           .duration(500)
+          // .attr("r", 10)
+           
+           .duration(500)
+           .transition()
+           .duration(1000)
+           .attr("r", 10)
+           
+           //.attr("cx",  userDistance ) 
 
+           .attr("cx", function(d, i){
+            //   console.log(userDistance);
+             //  console.log(Math.round(d.Range));
+               if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
+                   (d.Result === 1);
+                 //  console.log(d.Result)
+                   return d.Range;
+               }
+               else{
+                  // console.log(d.Result)
+                   return userDistance
+               }})
+               .delay(function (d, i) {
+                   return d.Range;
+               })
+               .delay(100)
+           .attr("cy", 300)
+           .duration(500)
+        //   .attr("r", 10)
+           
 
            })
