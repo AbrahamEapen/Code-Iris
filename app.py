@@ -11,6 +11,7 @@ from flask import Flask, render_template, jsonify, redirect, request, Response, 
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
+
 # Import Pickle
 import _pickle as pickle
 
@@ -59,7 +60,7 @@ def practice():
                         )
     
     # Force a 'pattern' in the results columns
-    moo['Result'] = 0 #np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
+ #   moo['Result'] = 0 #np.where((moo['Range']>= (jsdata + 20))&(moo['Range']<=(jsdata-20)),1,0)
     moojson = json.loads(moo.to_json(orient="records"))
  
     # Return only the jsonified version
@@ -104,8 +105,8 @@ def train():
         train_score = classifier.score(X_train, y_train)
         test_score = classifier.score(X_test, y_test)
 
-        # Pickle
-        pickle.dump(classifier, open("Classifier.sav", 'wb'))
+        # "Pickle"
+        pickle.dump(classifier, open("Classifier.sav", 'wb'))        
 
         # Return the Data
         return(str(train_score))
@@ -134,8 +135,8 @@ def train():
 @app.route("/replay", methods=["GET","POST"])
 def replay():
 
-    # Generate New Data (replayData)
-    # Store as an array called replayData
+ # Generate New Data (replayData)
+ # Store as an array called replayData
     angle = [random.randint(1, 90) for k in range(1000)]
     velocity = [random.randint(0, 100) for k in range(1000)]
     velocity =  np.array(velocity)
@@ -162,13 +163,13 @@ def replay():
                              )
 
     # Force a 'pattern' in the results columns
-    mooreplay['Result'] = 0#np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
-    moojson = json.loads(moo.to_json(orient="records"))
+    mooreplay['Result'] = 0 #np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
+    moojson = json.loads(mooreplay.to_json(orient="records"))
 
     # Filtered List
     filteredData = []
 
-    # Reload the classifier
+    # Load the classifier
     classifier = pickle.load(open("Classifier.sav", 'rb'))
 
     # Filter it down using the Classifier
