@@ -41,7 +41,7 @@ function result(d, i){
     var queryURL = "/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Mike/json11111.json" //"/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
-            console.log(dataset)
+          //  console.log(dataset)
             
     //  console.log(x)
     // Create SVG element
@@ -158,6 +158,8 @@ function result(d, i){
 
           });
 
+
+
           function postSender(data){
             $.post("/postmethod", data, function(data, response){
                 console.log(response);
@@ -183,8 +185,10 @@ function result(d, i){
            .attr("width", 60)
           
           
-           result(dataset)
+          // result(dataset)
 
+
+           
 
 
           // console.log(userDistance);
@@ -242,10 +246,27 @@ d3.select('g')
 //          });
 //      });
 //  });
-d3.select("#Train")
-           .on("click", function() {
-               $.post("/train", (userDistance) 
+// d3.select("#Train")
+//            .on("click", function() {
+//                $.post("/train", (userDistance) 
              
-             )  })
+//              )  })
          
+//start the animation of the circle
+           d3.select("#Train")
+           .on("click", function() {
+               d3.selectAll("circle")
+           .transition()
+           .attr("cy", 10)
+           .duration(500)
+           .transition()
+           .attr("cx", 10)
+           .attr("r", 10)
+           .attr("fill", "yellow")
+           .duration(500)
+           .delay(200)
+           .attr("cy", 300)
+           .attr("cx", (userDistance + d.Range - d.Angle))
 
+
+           })
