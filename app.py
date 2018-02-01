@@ -183,11 +183,13 @@ def replay():
 
      # Separate only necessary values
     for index, row in mooreplay.iterrows():
-        print("Angle:", row["Angle"])
-        print("Velocity:", row["Velocity"])
-        print("Range1", row["Range1"])
+        # print("Angle:", row["Angle"])
+        # print("Velocity:", row["Velocity"])
+        # print("Range1", row["Range1"])
 
-        if(classifier.predict([row["Angle"], row["Velocity"], row["Range1"]]) == 1):
+        print(classifier.predict([row["Angle"], row["Velocity"], row["Range1"]]))
+
+        if(classifier.predict([row["Angle"], row["Velocity"], row["Range1"]]) == 0):
                     
             filteredData.append(row)
             print(len(mooreplay))
