@@ -149,20 +149,20 @@ def replay():
     Range = ((velocity**2)*(np.sin(2*angle*3.14/180))/9.8)
 
     #Creating the Dataframe
-    moo = pd.DataFrame({'Angle': angle,
-                        'Velocity': velocity,
-                        'Horizontal Velocity': horizontal_velocity,
-                        'Vertical Velocity': vertical_velocity,
-                        'Free Fall Time': free_fall_time,
-                        'Total Time': total_time,
-                        'Maximum Height': maximum_height,
-                        'Range': Range,
-                        },
-                        columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum Height','Range']
-                        )
+    mooreplay = pd.DataFrame({'Angle': angle,
+                              'Velocity': velocity,
+                              'Horizontal Velocity': horizontal_velocity,
+                              'Vertical Velocity': vertical_velocity,
+                              'Free Fall Time': free_fall_time,
+                              'Total Time': total_time,
+                              'Maximum Height': maximum_height,
+                              'Range': Range,
+                             },
+                             columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum Height','Range']
+                             )
 
     # Force a 'pattern' in the results columns
-    moo['Result'] = 0#np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
+    mooreplay['Result'] = 0#np.where((moo['Range']>= 300)&(moo['Range']<=310),1,0)
     moojson = json.loads(moo.to_json(orient="records"))
 
     # Filtered List
@@ -172,17 +172,17 @@ def replay():
     classifier = pickle.load(open("Classifier.sav", 'rb'))
 
     # Filter it down using the Classifier
-    for x in range(len(replayData)):
+    for x in range(len(mooreplay)):
+        print(mooreplay[x])
+        if(classifier.predict([mooreplay[x]["Angle"],
+                              mooreplay[x]["Velocity"],
+                              mooreplay[x]["Range"]) == 1):
+            filteredData.append(mooreplay[x])
+            print(len(mooreplay))
+            print(len(filteredData))
 
-        print(replayData[x])
-        if(classifier.predict([replayData[x]["Angle"], replayData[x]["Velocity"], replayData[x]["Range"]) == 1):
-            filteredData.append(replayData[x])
-
-    print(len(replayData))
-    print(len(filteredData))
-
-    # Display only filtered Data
-    return(jsonify(filteredData))
+            # Display only filtered Data
+            return(jsonify(filteredData))
 
 @app.route('/postmethod', methods=['POST'])
 def get_post_javascript_data():
