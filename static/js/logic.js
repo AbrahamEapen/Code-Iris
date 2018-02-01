@@ -38,7 +38,7 @@ function result(d, i){
 
 
 //this is where we pull in the data
-    var queryURL = "/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Mike/json11111.json" //"/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
+    var queryURL = "/generate/" + "userDistance" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/Mike/json11111.json" //"/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
           //  console.log(dataset)
@@ -171,12 +171,13 @@ function result(d, i){
 
 
           function postSender(data){
-            $.post("/postmethod", data, function(data, response){
-                console.log(response);
+            $.post("/train", data, function(data, response){
+                // console.log(response);
+                console.log("SUCCESFULLY SENT")
             })
          }
         
-         $.get("/generate", function(dataset) {
+         $.get("/generate/" + userDistance, function(dataset) {
             //console.log(dataset[0])
             var testingData = JSON.stringify(dataset);
             console.log(testingData)
@@ -261,60 +262,134 @@ d3.select('g')
 //                $.post("/train", (userDistance) 
              
 //              )  })
-         
-//start the animation of the circle
-           d3.select("#Train")
-           .on("click", function() {
-               d3.selectAll("circle")
-           .transition()
-           .attr("cy", 10)
-           .attr("cx", 50)
-           .duration(500)
-           .transition()
-          // .attr("cx", 10)
-           .attr("r", 10)
-           .attr("fill", "yellow")
-           .duration(500)
-           .delay(200)
-                     
-           .duration(500)
-          // .delay(1500)
-           
-           .attr("fill", "red")
-           .attr("r", 30)
-           .duration(500)
-         //  .transition()
-           
-           .duration(3000)
-           .transition()
-           .duration(500)
-          // .attr("r", 10)
-           
-           .duration(500)
-           .transition()
-           .duration(1000)
-           .attr("r", 10)
-           
-           //.attr("cx",  userDistance ) 
+ 
 
-           .attr("cx", function(d, i){
-            //   console.log(userDistance);
-             //  console.log(Math.round(d.Range));
-               if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
-                   (d.Result === 1);
-                 //  console.log(d.Result)
-                   return d.Range;
-               }
-               else{
-                  // console.log(d.Result)
-                   return userDistance
-               }})
-               .delay(function (d, i) {
-                   return d.Range;
-               })
-               .delay(100)
-           .attr("cy", 300)
-           .duration(500)
-        //   .attr("r", 10)
+           d3.select("#Train")
+            .on("click", function() {
+
+
+              d3.json("/replay", function(error, dataset){
+
+                  d3.selectAll("circle")
+                             .transition()
+                             .attr("cy", 10)
+                             .attr("cx", 50)
+                             .duration(500)
+                             .transition()
+                            // .attr("cx", 10)
+                             .attr("r", 10)
+                             .attr("fill", "yellow")
+                             .duration(500)
+                             .delay(200)
+                                       
+                             .duration(500)
+                            // .delay(1500)
+                             
+                             .attr("fill", "red")
+                             .attr("r", 30)
+                             .duration(500)
+                           //  .transition()
+                             
+                             .duration(3000)
+                             .transition()
+                             .duration(500)
+                            // .attr("r", 10)
+                             
+                             .duration(500)
+                             .transition()
+                             .duration(1000)
+                             .attr("r", 10)
+                             
+                             //.attr("cx",  userDistance ) 
+
+                             .attr("cx", function(d, i){
+                              //   console.log(userDistance);
+                               //  console.log(Math.round(d.Range));
+                                 if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
+                                     (d.Result === 1);
+                                   //  console.log(d.Result)
+                                     return d.Range1;
+                                 }
+                                 else{
+                                    // console.log(d.Result)
+                                     return d.Range1
+                                 }})
+                                 .delay(function (d, i) {
+                                     return d.Range1;
+                                 })
+                                 .delay(100)
+                             .attr("cy", 300)
+                             .duration(500)
+                          //   .attr("r", 10)
+
+
+
+
+              })
+
+
+
+
+              })
+
+
+
+// //start the animation of the circle
+//            d3.select("#Train")
+//            .on("click", function() {
+          
+//             d3.json()
+
+//           d3.selectAll("circle")
+//            .transition()
+//            .attr("cy", 10)
+//            .attr("cx", 50)
+//            .duration(500)
+//            .transition()
+//           // .attr("cx", 10)
+//            .attr("r", 10)
+//            .attr("fill", "yellow")
+//            .duration(500)
+//            .delay(200)
+                     
+//            .duration(500)
+//           // .delay(1500)
            
-           })
+//            .attr("fill", "red")
+//            .attr("r", 30)
+//            .duration(500)
+//          //  .transition()
+           
+//            .duration(3000)
+//            .transition()
+//            .duration(500)
+//           // .attr("r", 10)
+           
+//            .duration(500)
+//            .transition()
+//            .duration(1000)
+//            .attr("r", 10)
+           
+//            //.attr("cx",  userDistance ) 
+
+//            .attr("cx", function(d, i){
+//             //   console.log(userDistance);
+//              //  console.log(Math.round(d.Range));
+//                if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
+//                    (d.Result === 1);
+//                  //  console.log(d.Result)
+//                    return d.Range;
+//                }
+//                else{
+//                   // console.log(d.Result)
+//                    return userDistance
+//                }})
+//                .delay(function (d, i) {
+//                    return d.Range;
+//                })
+//                .delay(100)
+//            .attr("cy", 300)
+//            .duration(500)
+//         //   .attr("r", 10)
+           
+//            })

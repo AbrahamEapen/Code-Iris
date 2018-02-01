@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import math
 import random, json
+import sys
+
 
 # Flask
 from flask import Flask, render_template, jsonify, redirect, request, Response, json
@@ -28,8 +30,8 @@ def home(name=None):
     return render_template('index.html', name=name)
 
 # Route for Generate JSONs
-@app.route("/generate", methods=["GET", "POST"])
-def practice():
+@app.route("/generate/<userdistance>", methods=["GET"])
+def practice(userdistance):
 
     # Initial Data
     angle = [random.randint(1, 90) for k in range(1000)]
@@ -43,6 +45,7 @@ def practice():
     total_time = (2*free_fall_time)
     maximum_height = (2*vertical_velocity/(2*gravity))
     Range = ((velocity**2)*(np.sin(2*angle*3.14/180))/9.8)
+    Distance = userdistance
 
     # Creating the DataFrame
     moo = pd.DataFrame({'Angle': angle,
@@ -52,9 +55,10 @@ def practice():
                         'Free Fall Time': free_fall_time,
                         'Total Time': total_time,
                         'Maximum Height': maximum_height,
-                        'Range': Range
+                        'Range': Range,
+                        "Distance": userdistance
                         },
-                        columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum_Height','Range']
+                        columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum_Height','Range', "Distance"]
                         )
 
     # Force a 'pattern' in the results columns
@@ -70,24 +74,30 @@ def practice():
 # Route for Training JSONs
 @app.route("/train", methods=['GET','POST'])
 def train():
+
+    print("I WAS HIT", file=sys.stderr)
+
     # AJAX Route that "post" data back
     if request.method == "POST":
-     print("Post went through")
+     
+     print("Post went through", file=sys.stderr)
      jsdata = request.get_json(force=True)
      # Convert array into DataFrame
      moopretrained = pd.DataFrame(jsdata)
-     print(moopretrained.head())
+     # print(moopretrained.head())
 
+
+    print(jsdata)
     for x in jsdata:
-        print(x)
+        # print(x)
 
     # print("line", jsdata)
     # return jsonify(jsdata)
 
         # Convert array into DataFrame
         # and append new column "Results" with Successful, Angle, Velocity, and Range
-        moopretrained['Result'] = Series(np.where((moopretrained['Range']>= (jsdata + 20))&(moopretrained['Range']<=(jsdata-20))), index=moopretrained.index)
-    
+        moopretrained["Result"] = moopretrained["Result"] = np.where( ( moopretrained["Range"] < (  moopretrained["Distance"].astype(str).astype(int) + 20  ) ) & ( moopretrained["Range"] > (  moopretrained["Distance"].astype(str).astype(int) - 20  ) ), 1, 0) 
+        
         # Separate "Labels" and "Data"
         labels = moopretrained["Result"].values
         data = moopretrained[["Angle","Velocity","Range"]].values
@@ -157,16 +167,12 @@ def replay():
                               'Free Fall Time': free_fall_time,
                               'Total Time': total_time,
                               'Maximum Height': maximum_height,
-                              'Range': Range,
+                              'Range1': Range,
                              },
-                             columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum Height','Range']
+                             columns=['Angle','Velocity','Horizontal Velocity','Vertical Velocity','Free Fall Time','Total Time','Maximum Height','Range1']
                              )
 
-     # Separate only necessary values
-    for index, row in mooreplay.iterrows():
-                 print("Angle:", row["Angle"])
-                 print("Velocity:", row["Velocity"])
-                 print("Range", row["Range"])
+    print("ANOTHER TEST", file=sys.stderr)
 
     # Filtered List
     filteredData = []
@@ -174,27 +180,34 @@ def replay():
     # Load the classifier
     classifier = pickle.load(open("Classifier.sav", 'rb'))
        
-    # Filter it down using the Classifier
-    for x in range(len(mooreplay)):
-        print(mooreplay[x])
-        if(classifier.predict(mooreplay[x]["Angle"],
-                              mooreplay[x]["Velocity"],
-                              mooreplay[x]["Range"]) == 1):
-            filteredData.append(mooreplay[x])
+
+     # Separate only necessary values
+    for index, row in mooreplay.iterrows():
+        print("Angle:", row["Angle"])
+        print("Velocity:", row["Velocity"])
+        print("Range1", row["Range1"])
+
+        if(classifier.predict([row["Angle"], row["Velocity"], row["Range1"]]) == 1):
+                    
+            filteredData.append(row)
             print(len(mooreplay))
             print(len(filteredData))
 
-            # Display only filtered Data
-            return(jsonify(filteredData))
+    print(filteredData, file=sys.stderr)
+    # Display only filtered Data
+    return(jsonify(filteredData))
 
 @app.route('/postmethod', methods=['POST'])
 def get_post_javascript_data():
-    if request.method == "POST":
-        print("Post went through")
-        jsdata = request.get_json(force=True)
+    print("ANOTHER TEST", file=sys.stderr)
 
-        for x in jsdata:
-            print(x)
+    if request.method == "POST":
+        # print("Post went through")
+        jsdata = request.get_json(force=True)
+        print(jsdata)
+
+        # for x in jsdata:
+        #     print(x)
 
     # print("line", jsdata)
     return jsonify(jsdata)
