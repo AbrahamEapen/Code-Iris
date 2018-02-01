@@ -11,23 +11,23 @@ slider.oninput = function() {
 }
     
 
-function result(d, i){
-    console.log("test result function", d.Result)
-    if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
-        (d.Result === 1);
-        console.log(d.Result)
-        return (d.Result === 1)
+// function result(d, i){
+//     console.log("test result function", d.Result)
+//     if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
+//         (d.Result === 1);
+//         console.log(d.Result)
+//         return (d.Result === 1)
        
-    }
-    else{
+//     }
+//     else{
     
-        return (d.Result === 0)
-    }}
+//         return (d.Result === 0)
+//     }}
     
     
     // Width and height
-    var w = 800;
-    var h = 400;
+    //var w = 800;
+   // var h = 400;
     
 //    // Data ( GET Request )
 //    var queryURL = $.get("/generate", function(data) {
@@ -36,17 +36,18 @@ function result(d, i){
 
 
 //this is where we pull in the data
-    var queryURL = "/Train" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
+    var queryURL = "/generate" //"https://raw.githubusercontent.com/AbrahamEapen/Code-Iris/master/Front-End%20Site/js/newDatas.json"
     // Pull in the data
     d3.json(queryURL, function(error, dataset){
-            console.log(dataset)
+           // console.log(dataset)
             
     //  console.log(x)
     // Create SVG element
-    var svg = d3.select("#fireballCanvas")
-                .append("svg")
-                .attr("width", w)
-                .attr("height", h);
+   // var svg = 
+   // d3.select("#fireballCanvas")
+            //    .append("svg")
+             //   .attr("width", w)
+            //    .attr("height", h);
 
 //                  d3.select('#fireballCanvas')
 //                 //  .append('svg')
@@ -68,24 +69,18 @@ function result(d, i){
 
 
      // create the circle
-    var circles = svg.selectAll("circle")
+   // var circles = 
+    svg.selectAll("circle")
         .data(dataset)
         .text(function(d, i) {
             return d.Velocity;
         })
         .attr("class", "label")
-        .enter()
+      //  .enter()
         .append("circle");
 
     circles.attr("cx", 400)
-           .attr("cy", function(d, i) {
-               try {
-                   return (50)
-               } 
-               catch (err) {
-                   console.log("you have experienced an error, sir!")
-               }
-           })
+           .attr("cy", 10)
             .attr("r",10)// function(d, i){
         //     if (d.Result === 1) {
         //         return 20;
@@ -160,7 +155,7 @@ function result(d, i){
            .attr("width", 60)
           
           
-           result(dataset)
+        //   result(dataset)
 
 
           // console.log(userDistance);
