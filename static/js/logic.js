@@ -298,23 +298,23 @@ d3.select('g')
            
            //.attr("cx",  userDistance ) 
 
-           .attr("cx", function(d, i){
+           .attr("cx", function(dataset, i){
             //   console.log(userDistance);
              //  console.log(Math.round(d.Range));
-               if ( Math.abs((Math.round(d.Range) - userDistance)) < 40 ) {
-                   (d.Result === 1);
+               if ( Math.abs((Math.round(dataset.Range) - userDistance)) < 40 ) {
+                   //(d.Result === 1);
                  //  console.log(d.Result)
-                   return d.Range;
+                   return dataset.Range;
                }
                else{
                   // console.log(d.Result)
                    return userDistance
-               }})
-               .delay(function (d, i) {
-                   return d.Range;
+               }}).attr("cy", 300)
+               .duration(function (d, i) {
+                   return dataset.Range;
                })
                .delay(100)
-           .attr("cy", 300)
+           
            .duration(500)
         //   .attr("r", 10)
            
