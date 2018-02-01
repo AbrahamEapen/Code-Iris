@@ -130,7 +130,7 @@ def train():
 #     #         print(success_guesses[x])
 #     #         print(newSimulation[x])
 
-# # Route for Filtering JSONs
+# Route for Filtering JSONs
 @app.route("/replay", methods=["GET","POST"])
 def replay():
 
@@ -174,7 +174,7 @@ def replay():
     # Filter it down using the Classifier
     for x in range(len(mooreplay)):
         print(mooreplay[x])
-        if(classifier.predict([mooreplay[x]["Angle"],
+        if(classifier.predict(mooreplay[x]["Angle"],
                               mooreplay[x]["Velocity"],
                               mooreplay[x]["Range"]) == 1):
             filteredData.append(mooreplay[x])
