@@ -276,15 +276,7 @@ d3.select('g')
            .attr("fill", "yellow")
            .duration(500)
            .delay(200)
-           
-<<<<<<< HEAD
-           .attr("cy", 300)
-           .duration(500)
-           .delay(500)
-           .attr("cx", ((userDistance + Math.floor(Math.random() * 7 ) +1) ))
-
-=======
-          
+                     
            .duration(500)
           // .delay(1500)
            
@@ -325,6 +317,4 @@ d3.select('g')
            .duration(500)
         //   .attr("r", 10)
            
->>>>>>> 4a9a0145dfb52650eb9abb516b9367d5af5757a4
-
            })
